@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Text Summarizer — Clean Analytics</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --muted: #667085;
+      --accent: #2563eb; /* blue */
+      --accent-2: #06b6d4; /* teal */
+      --border: #e6e9ef;
+      --success: #10b981;
+      --radius: 12px;
+      --shadow: 0 6px 18px rgba(20,22,40,0.06);
+    }
+    *{box-sizing:border-box; font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+    html,body{height:100%; margin:0; background:var(--bg); color:#0f172a;}
+    .app {
+      max-width: 1100px;
+      margin: 36px auto;
+      padding: 28px;
+    }
+
+    header.topbar {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:20px;
+    }
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo {
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid;
+      place-items:center;
+      color:white;
+      font-weight:700;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.15);
+    }
+    .title {
+      font-size:18px;
+      font-weight:700;
+      line-height:1;
+    }
+    .subtitle {
+      color:var(--muted);
+      font-size:13px;
+      margin-top:2px;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap:22px;
+    }
+
+    .card {
+      background:var(--card);
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      padding:20px;
+    }
+
+    /* Input area */
+    .label {font-weight:600; font-size:14px; margin-bottom:8px; color:#0f172a;}
+    textarea#text-input{
+      width:100%;
+      min-height:240px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      padding:14px;
+      font-size:15px;
+      resize:vertical;
+      outline:none;
+    }
+    textarea#text-input:focus{box-shadow:0 6px 18px rgba(37,99,235,0.06); border-color:var(--accent);}
+
+    .controls {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .controls-left {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    input[type="number"]{
+      width:84px;
+      padding:8px 10px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      font-size:14px;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, var(--accent), #1d4ed8);
+      color:white;
+      border:none;
+      padding:10px 18px;
+      font-weight:600;
+      border-radius:10px;
+      cursor:pointer;
+      box-shadow: 0 8px 20px rgba(37,99,235,0.12);
+    }
+    .btn.secondary {
+      background:transparent;
+      color:var(--muted);
+      border:1px solid var(--border);
+      box-shadow:none;
+    }
+    .btn.small {
+      padding:8px 12px;
+      font-size:14px;
+      border-radius:8px;
+    }
+
+    .meta {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* Output area */
+    .summary-area {
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .summary-box {
+      min-height:220px;
+      max-height:60vh;
+      overflow:auto;
+      padding:16px;
+      border-radius:8px;
+      background:linear-gradient(180deg, #fff, #fbfdff);
+      border:1px solid var(--border);
+      color:#0f172a;
+      font-size:15px;
+      line-height:1.5;
+      white-space:pre-wrap;
+    }
+
+    .summary-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+
+    footer {
+      margin-top:20px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+    }
+
+    /* Responsive */
+    @media (max-width:900px){
+      .grid{ grid-template-columns: 1fr; }
+      .app { padding:18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">AI</div>
+        <div>
+          <div class="title">Text Summarizer</div>
+          <div class="subtitle">Clean analytics style — concise summaries, fast results</div>
+        </div>
+      </div>
+
+      <div class="meta">
+        <div>Local Demo</div>
+        <div style="width:8px; height:8px; background:var(--success); border-radius:50%; box-shadow:0 4px 12px rgba(16,185,129,0.12)"></div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- LEFT: Input -->
+      <section class="card">
+        <div class="label">Enter Text</div>
+        <textarea id="text-input" placeholder="Paste or write your content here..."></textarea>
+
+        <div class="controls" style="margin-top:14px;">
+          <div class="controls-left">
+            <div>
+              <div style="font-size:13px; color:var(--muted); margin-bottom:6px;"># Sentences</div>
+              <input id="num-sentences" type="number" min="1" value="2">
+            </div>
+            <button class="btn small" id="summarize-btn" onclick="summarizeText()">Summarize</button>
+            <button class="btn secondary small" onclick="clearAll()">Clear</button>
+          </div>
+
+          <div style="text-align:right;">
+            <div style="font-size:13px; color:var(--muted);">Model</div>
+            <div style="font-weight:600;">Extractive · TF-IDF</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: Output -->
+      <aside class="card">
+        <div class="summary-header">
+          <div>
+            <div style="font-weight:700; font-size:15px;">Summary</div>
+            <div style="font-size:13px; color:var(--muted); margin-top:4px;">Result will appear here</div>
+          </div>
+
+          <div style="display:flex; gap:8px;">
+            <button class="btn small" id="copy-btn" onclick="copySummary()">Copy</button>
+            <button class="btn secondary small" onclick="downloadSummary()">Download</button>
+          </div>
+        </div>
+
+        <div class="summary-area" style="margin-top:12px;">
+          <div id="summary-output" class="summary-box">Your summary will appear here...</div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      © <strong>Your Name</strong> • Powered by Flask · NLTK · scikit-learn
+    </footer>
+  </div>
+
+  <script>
+    async function summarizeText() {
+      const text = document.getElementById('text-input').value;
+      const numSentences = document.getElementById('num-sentences').value || 2;
+      const out = document.getElementById('summary-output');
+      const btn = document.getElementById('summarize-btn');
+
+      if (!text || !text.trim()) {
+        alert('Please enter some text to summarize.');
+        return;
+      }
+
+      // UI feedback
+      btn.disabled = true;
+      btn.innerText = 'Summarizing...';
+
+      try {
+        const resp = await fetch('/summarize', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ text: text, num_sentences: Number(numSentences) })
+        });
+
+        const data = await resp.json();
+        if (resp.ok && data.summary) {
+          out.innerText = data.summary;
+        } else {
+          out.innerText = '⚠️ ' + (data.error || 'No summary returned.');
+        }
+      } catch (err) {
+        console.error(err);
+        out.innerText = '❌ Error: Could not get summary. See console.';
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Summarize';
+      }
+    }
+
+    function clearAll(){
+      document.getElementById('text-input').value = '';
+      document.getElementById('summary-output').innerText = 'Your summary will appear here...';
+    }
+
+    function copySummary(){
+      const text = document.getElementById('summary-output').innerText;
+      if (!text || text.includes('Error') || text.includes('No summary')){
+        alert('Nothing to copy.');
+        return;
+      }
+      navigator.clipboard.writeText(text).then(()=>{
+        alert('Summary copied to clipboard');
+      }).catch(()=>alert('Copy failed'));
+    }
+
+    function downloadSummary(){
+      const text = document.getElementById('summary-output').innerText;
+      if (!text || text.includes('Error') || text.includes('No summary')){
+        alert('Nothing to download.');
+        return;
+      }
+      const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'summary.txt';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
+
+
