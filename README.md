@@ -1,4 +1,4 @@
-Text-Summarizer-Using-NLP
+#Text-Summarizer-Using-NLP
 📌 Project Overview
 
 Text-Summarizer-Using-NLP is a Flask-based web application that takes long textual content as input and generates a concise and meaningful summary using Natural Language Processing (NLP) techniques.
