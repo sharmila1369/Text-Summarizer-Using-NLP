@@ -69,7 +69,9 @@ python app.py
 Then open your browser and go to:
 
 http://127.0.0.1:5000/
-🧠 How It Works
+
+##🧠 How It Works
+
 User enters long text in the input box.
 
 The NLP model processes the text.
@@ -78,7 +80,8 @@ Important sentences are extracted.
 
 A concise summary is generated and displayed.
 
-📌 Future Enhancements
+##📌 Future Enhancements
+
 Add abstractive summarization
 
 Support for PDF and DOCX files
@@ -87,7 +90,8 @@ Multi-language support
 
 Download summary as a file
 
-👩‍💻 Author
-Sharmilambika Venna
+##👩‍💻 Author
+
+Sharmila Venna
 B.Tech CSE (Artificial Intelligence & Data Science)
 
