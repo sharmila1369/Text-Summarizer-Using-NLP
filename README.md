@@ -89,14 +89,15 @@ http://127.0.0.1:5000/
 - Multi-language support  
 - Download summary as a file  
 
----
+
 
 ## 👩‍💻 Author  
 
 **Sharmilambika Venna**  
 B.Tech CSE (Artificial Intelligence & Data Science)  
 
----
+
+## ✨ Features  
 
 
 
