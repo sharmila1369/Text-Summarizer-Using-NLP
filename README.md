@@ -109,7 +109,8 @@ The application provides a simple interface where the user can enter text and sp
 
 ### Example Output
 
-![Text Summarization Output](output.png)
+![Text Summarization Output](<img width="826" height="752" alt="output png" src="https://github.com/user-attachments/assets/89fafe60-34e2-4832-b4a3-74d6c521b327" />
+)
 
 The above output shows:
 
